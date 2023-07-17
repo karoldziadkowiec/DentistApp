@@ -1,4 +1,4 @@
-# DentistApp
+# DentApp
 
 The project presents a window application with an interface for operating a dental office. The application helps to automate processes in the dental office. The application has two forms of use: from the patient's side and from the administrator's (dentist's) side. During this project I created my first application documentation (dokumentacja.pdf). 
 

@@ -4,7 +4,7 @@ The project presents a window application with an interface for operating a dent
 
 Technologies used in the project: C++, .NET, Microsoft SQL Server.
 
-Features of project: registering, logging in, editing the profile, registering visits by choosing a date, canceling a visit, viewing visits, viewing information about the salon, logging out. Administator's side has been enhanced with the following features: viewing customers data, warehouse management (adding and deleting products).
+Features of the project: registering, logging in, editing the profile, registering visits by choosing a date, canceling a visit, viewing visits, viewing information about the salon, logging out. Administator's side has been enhanced with the following features: viewing customers data, warehouse management (adding and deleting products).
 
 ![Login Page](https://github.com/karoldziadkowiec/DentistApp/blob/master/photos/1.png)
 ![Main Page](https://github.com/karoldziadkowiec/DentistApp/blob/master/photos/2.png)

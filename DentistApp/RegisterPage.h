@@ -20,12 +20,7 @@ namespace DentistApp {
 		RegisterPage(void)
 		{
 			InitializeComponent();
-			//
-			//TODO: W tym miejscu dodaj kod konstruktora
-			//
-
 			this->CenterToScreen();
-
 		}
 
 	protected:
@@ -41,50 +36,25 @@ namespace DentistApp {
 		}
 	private: System::Windows::Forms::TextBox^ PoleNazwisko;
 	protected:
-
-
 	private: System::Windows::Forms::TextBox^ PoleImie;
 	private: System::Windows::Forms::TextBox^ PolePesel;
 	private: System::Windows::Forms::TextBox^ PoleLogin;
 	private: System::Windows::Forms::TextBox^ PoleHaslo;
 	private: System::Windows::Forms::TextBox^ PolePotwierdzHaslo;
 	private: System::Windows::Forms::TextBox^ PoleNumerTelefonu;
-
-
-
-
-
-
 	private: System::Windows::Forms::Label^ NapisLogin;
 	private: System::Windows::Forms::Label^ NapisHaslo;
 	private: System::Windows::Forms::Label^ NapisPotwierdzHaslo;
-
-
-
 	private: System::Windows::Forms::Label^ NapisPesel;
-
 	private: System::Windows::Forms::Label^ NapisImie;
 	private: System::Windows::Forms::Label^ NapisNazwisko;
 	private: System::Windows::Forms::Label^ NapisNumerTelefonu;
 	private: System::Windows::Forms::Label^ NapisAdres;
 	private: System::Windows::Forms::TextBox^ PoleAdres;
-
-
-
-
-
 	private: System::Windows::Forms::Button^ PrzyciskZarejestruj;
-
 	private: System::Windows::Forms::Button^ PrzyciskPowrot;
-
 	private: System::Windows::Forms::Label^ NapisRejestracja;
-
-
-
-
-
 	protected:
-
 	private:
 		/// <summary>
 		/// Wymagana zmienna projektanta.
@@ -398,122 +368,151 @@ namespace DentistApp {
 #pragma endregion
 
 	private: System::Void Powrot(System::Object^ sender, System::EventArgs^ e) {
-	this->goToLoginPage = true;
-	this->Close();
-	}
-	public: bool goToLoginPage = false;
-	public: User^ user = nullptr;
-	private: System::Void Zarejestruj(System::Object^ sender, System::EventArgs^ e) {
-	String^ name = this->PoleImie->Text;
-	String^ surname = this->PoleNazwisko->Text;
-	String^ pesel = this->PolePesel->Text;
-	String^ login = this->PoleLogin->Text;
-	String^ password = this->PoleHaslo->Text;
-	String^ confirmPassword = this->PolePotwierdzHaslo->Text;
-	String^ phone = this->PoleNumerTelefonu->Text;
-	String^ address = this->PoleAdres->Text;
-	if (name->Length == 0 || surname->Length == 0 || pesel->Length == 0 || login->Length == 0 || password->Length == 0 || confirmPassword->Length == 0 || phone->Length == 0 || address->Length == 0)
-	{
-		MessageBox::Show("Uzupe³nij puste pola.", "DentApp", MessageBoxButtons::OK);
-		return;
-	}
-	if (pesel->Length !=11 && pesel->Length != 0)
-	{
-		MessageBox::Show("Numer PESEL musi zawieraæ 11 znaków.", "DentApp", MessageBoxButtons::OK);
-		return;
-	}
-	if ((login->Length < 5 && login->Length != 0) || (login->Length > 12 && login->Length != 0))
-	{
-		MessageBox::Show("Login musi zawieraæ od 5 do 12 znaków.", "DentApp", MessageBoxButtons::OK);
-		return;
-	}
-	if ((password->Length < 5 && password->Length != 0) || (password->Length > 15 && password->Length != 0))
-	{
-		MessageBox::Show("Has³o musi zawieraæ od 5 do 15 znaków.", "DentApp", MessageBoxButtons::OK);
-		return;
-	}
-	if (String::Compare(password, confirmPassword) != 0)
-	{
-		MessageBox::Show("Podane has³a s¹ ró¿ne. Popraw dane.", "DentApp", MessageBoxButtons::OK);
-		return;
-	}
-	if (phone->Length != 9 && pesel->Length != 0)
-	{
-		MessageBox::Show("Numer telefonu musi zawieraæ 9 znaków.", "DentApp", MessageBoxButtons::OK);
-		return;
-	}
-	try
-	{
-		String^ connectionString = "Data Source=.;Initial Catalog=Dentist;Integrated Security=True";
-		SqlConnection sqlConnectionString(connectionString);
-		sqlConnectionString.Open();
-
-		String^ sqlQuery = "INSERT INTO Users " +
-			"(pesel, name, surname, login, password, phone, address) VALUES " +
-			"(@pesel, @name, @surname, @login, @password, @phone, @address);";
-		SqlCommand command(sqlQuery, % sqlConnectionString);
-		command.Parameters->AddWithValue("@pesel", pesel);
-		command.Parameters->AddWithValue("@name", name);
-		command.Parameters->AddWithValue("@surname", surname);
-		command.Parameters->AddWithValue("@login", login);
-		command.Parameters->AddWithValue("@password", password);
-		command.Parameters->AddWithValue("@phone", phone);
-		command.Parameters->AddWithValue("@address", address);
-
-		command.ExecuteNonQuery();
-		user = gcnew User;
-		user->pesel = pesel;
-		user->name = name;
-		user->surname = surname;
-		user->login = login;
-		user->password = password;
-		user->phone = phone;
-		user->address = address;
-
 		this->goToLoginPage = true;
-		MessageBox::Show("Pomyœlnie zarejestrowano konto.", "DentApp", MessageBoxButtons::OK);
 		this->Close();
 	}
-	catch (Exception^ ex)
-	{
-		MessageBox::Show("B³¹d rejestracji. Podany PESEL lub login posaida ju¿ konto.", "DentApp", MessageBoxButtons::OK);
+
+	public: bool goToLoginPage = false;
+	public: User^ user = nullptr;
+
+	private: System::Void Zarejestruj(System::Object^ sender, System::EventArgs^ e) {
+
+		String^ name = this->PoleImie->Text;
+		String^ surname = this->PoleNazwisko->Text;
+		String^ pesel = this->PolePesel->Text;
+		String^ login = this->PoleLogin->Text;
+		String^ password = this->PoleHaslo->Text;
+		String^ confirmPassword = this->PolePotwierdzHaslo->Text;
+		String^ phone = this->PoleNumerTelefonu->Text;
+		String^ address = this->PoleAdres->Text;
+
+		if (name->Length == 0 || surname->Length == 0 || pesel->Length == 0 || login->Length == 0 || password->Length == 0 || confirmPassword->Length == 0 || phone->Length == 0 || address->Length == 0)
+		{
+			MessageBox::Show("Uzupe³nij puste pola.", "DentApp", MessageBoxButtons::OK);
+			return;
+		}
+
+		if (pesel->Length !=11 && pesel->Length != 0)
+		{
+			MessageBox::Show("Numer PESEL musi zawieraæ 11 znaków.", "DentApp", MessageBoxButtons::OK);
+			return;
+		}
+
+		if ((login->Length < 5 && login->Length != 0) || (login->Length > 12 && login->Length != 0))
+		{
+			MessageBox::Show("Login musi zawieraæ od 5 do 12 znaków.", "DentApp", MessageBoxButtons::OK);
+			return;
+		}
+
+		if ((password->Length < 5 && password->Length != 0) || (password->Length > 15 && password->Length != 0))
+		{
+			MessageBox::Show("Has³o musi zawieraæ od 5 do 15 znaków.", "DentApp", MessageBoxButtons::OK);
+			return;
+		}
+
+		if (String::Compare(password, confirmPassword) != 0)
+		{
+			MessageBox::Show("Podane has³a s¹ ró¿ne. Popraw dane.", "DentApp", MessageBoxButtons::OK);
+			return;
+		}
+
+		if (phone->Length != 9 && pesel->Length != 0)
+		{
+			MessageBox::Show("Numer telefonu musi zawieraæ 9 znaków.", "DentApp", MessageBoxButtons::OK);
+			return;
+		}
+
+		try
+		{
+			String^ connectionString = "Data Source=.;Initial Catalog=Dentist;Integrated Security=True";
+			SqlConnection sqlConnectionString(connectionString);
+			sqlConnectionString.Open();
+
+			String^ sqlQuery = "INSERT INTO Users " +
+				"(pesel, name, surname, login, password, phone, address) VALUES " +
+				"(@pesel, @name, @surname, @login, @password, @phone, @address);";
+			SqlCommand command(sqlQuery, % sqlConnectionString);
+			command.Parameters->AddWithValue("@pesel", pesel);
+			command.Parameters->AddWithValue("@name", name);
+			command.Parameters->AddWithValue("@surname", surname);
+			command.Parameters->AddWithValue("@login", login);
+			command.Parameters->AddWithValue("@password", password);
+			command.Parameters->AddWithValue("@phone", phone);
+			command.Parameters->AddWithValue("@address", address);
+
+			command.ExecuteNonQuery();
+			user = gcnew User;
+			user->pesel = pesel;
+			user->name = name;
+			user->surname = surname;
+			user->login = login;
+			user->password = password;
+			user->phone = phone;
+			user->address = address;
+
+			this->goToLoginPage = true;
+			MessageBox::Show("Pomyœlnie zarejestrowano konto.", "DentApp", MessageBoxButtons::OK);
+			this->Close();
+		}
+		catch (Exception^ ex)
+		{
+			MessageBox::Show("B³¹d rejestracji. Podany PESEL lub login posaida ju¿ konto.", "DentApp", MessageBoxButtons::OK);
+		}
 	}
-}
+
 	private: System::Void RegisterPage_Load(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void napis_rejestracja(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void napis_imie(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void napis_nazwisko(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void napis_pesel(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void napis_login(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void napis_haslo(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void napis_potwierdz_haslo(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void napis_numer_telefonu(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void napis_adres(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void pole_imie(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void pole_nazwisko(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void pole_pesel(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void pole_login(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void pole_haslo(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void pole_potwierdz_haslo(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void pole_numer_telefonu(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void pole_adres(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 };
 }

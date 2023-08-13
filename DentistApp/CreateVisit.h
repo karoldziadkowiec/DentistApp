@@ -21,11 +21,8 @@ namespace DentistApp {
 		CreateVisit(User^ user)
 		{
 			InitializeComponent();
-			//
-			//TODO: W tym miejscu dodaj kod konstruktora
-			//
+			
 			NapisTwojPesel->Text = user->pesel;
-
 			String^ pesel = user->pesel;
 			String^ connectionString = "Data Source=.;Initial Catalog=Dentist;Integrated Security=True";
 			SqlConnection^ sqlConnectionString = gcnew SqlConnection(connectionString);
@@ -64,28 +61,13 @@ namespace DentistApp {
 	private: System::Windows::Forms::Label^ NapisUtworzWizyte;
 	private: System::Windows::Forms::Button^ PrzyciskPowrot;
 	protected:
-
-
 	private: System::Windows::Forms::Button^ PrzyciskUtworz;
-
 	private: System::Windows::Forms::Label^ NapisData;
 	private: System::Windows::Forms::TextBox^ PoleData;
-
-
 	private: System::Windows::Forms::Label^ NapisTwojPesel;
-
-
 	private: System::Windows::Forms::Label^ NapisUtworzWizyteDla;
 	private: System::Windows::Forms::DataGridView^ BazaWizyty;
-
-
 	private: System::Windows::Forms::Label^ NapisDostepneWizyty;
-
-
-
-
-
-
 	private:
 		/// <summary>
 		/// Wymagana zmienna projektanta.
@@ -281,8 +263,6 @@ namespace DentistApp {
 			SqlConnection sqlConnectionString(connectionString);
 			sqlConnectionString.Open();
 
-			//"SELECT date FROM Visits WHERE date != NULL;";
-
 			String^ sqlQuery = "UPDATE Visits " +
 				"SET pesel=@pesel " +
 				"WHERE date=@date";
@@ -291,7 +271,6 @@ namespace DentistApp {
 			command.Parameters->AddWithValue("@pesel", pesel);
 			command.Parameters->AddWithValue("@date", date);
 			command.ExecuteNonQuery();
-
 
 			MessageBox::Show("Pomyœlnie zarejestrowano wizytê.", "DentApp", MessageBoxButtons::OK);
 			this->Close();
@@ -305,22 +284,30 @@ namespace DentistApp {
 	private: System::Void Powrot(System::Object^ sender, System::EventArgs^ e) {
 		this->Close();
 	}
-	private: System::Void pole_data(System::Object^ sender, System::EventArgs^ e) {
 
+	private: System::Void pole_data(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void napis_data(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void napis_pesel(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void baza_wizyty(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
 	}
+
 	private: System::Void napis_dostepne_wizyty(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void CreateVisit_Load(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void napis_utworz_wizyte_dla(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void napis_utworz_wizyte(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 };
 }

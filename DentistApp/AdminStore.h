@@ -18,9 +18,7 @@ namespace DentistApp {
 		AdminStore(void)
 		{
 			InitializeComponent();
-			//
-			//TODO: W tym miejscu dodaj kod konstruktora
-			//
+			
 			String^ connectionString = "Data Source=.;Initial Catalog=Dentist;Integrated Security=True";
 			SqlConnection^ sqlConnectionString = gcnew SqlConnection(connectionString);
 			SqlCommand^ cmdDataBase = gcnew SqlCommand("SELECT name,amount,price FROM Products ORDER BY name asc", sqlConnectionString);
@@ -57,26 +55,15 @@ namespace DentistApp {
 	private: System::Windows::Forms::Label^ NapisStanMagazynu;
 	private: System::Windows::Forms::Button^ PrzyciskPowrot;
 	protected:
-
-
 	private: System::Windows::Forms::DataGridView^ BazaMagazyn;
 	private: System::Windows::Forms::Label^ NapisWybierzProdukt;
 	private: System::Windows::Forms::TextBox^ PoleWybierzProdukt;
-
-
-
 	private: System::Windows::Forms::Label^ NapisPodajIlosc;
 	private: System::Windows::Forms::TextBox^ PolePodajIlosc;
 	private: System::Windows::Forms::Button^ PrzyciskUsun;
-
-
-
 	private: System::Windows::Forms::Button^ PrzyciskDodaj;
 	private: System::Windows::Forms::Button^ PrzyciskEdytujBazeProduktow;
-
-
 	protected:
-
 	private:
 		/// <summary>
 		/// Wymagana zmienna projektanta.
@@ -260,86 +247,102 @@ namespace DentistApp {
 	private: System::Void Powrot(System::Object^ sender, System::EventArgs^ e) {
 		this->Close();
 	}
+
 	private: System::Void napis_wybierz_produkt(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void AdminStore_Load(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void baza_magazyn(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
 	}
+
 	private: System::Void pole_wybierz_produkt(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void Dodaj(System::Object^ sender, System::EventArgs^ e) {
-	String^ name = this->PoleWybierzProdukt->Text;
-	String^ amount = this->PolePodajIlosc->Text;
-	if (name->Length == 0 && amount->Length == 0)
-	{
-		MessageBox::Show("Wpisz poprawnie parametry.", "DentApp", MessageBoxButtons::OK);
-		return;
-	}
-	try
-	{
-		String^ connectionString = "Data Source=.;Initial Catalog=Dentist;Integrated Security=True";
-		SqlConnection sqlConnectionString(connectionString);
-		sqlConnectionString.Open();
 
-		String^ sqlQuery = "UPDATE Products " +
-			"SET amount=amount+'"+amount+"' "+
-			"WHERE name=@name ";
-
-		SqlCommand command(sqlQuery, % sqlConnectionString);
-		command.Parameters->AddWithValue("@amount", amount);
-		command.Parameters->AddWithValue("@name", name);
-		command.ExecuteNonQuery();
-
-		MessageBox::Show("Zwiêkszono iloœæ produktu w magazynie.", "DentApp", MessageBoxButtons::OK);
-		this->Close();
-	}
-	catch (Exception^ ex)
-	{
-		MessageBox::Show("B³¹d bazy magazynu.", "DentApp", MessageBoxButtons::OK);
-	}
-	}
-	private: System::Void Usun(System::Object^ sender, System::EventArgs^ e) {
 		String^ name = this->PoleWybierzProdukt->Text;
 		String^ amount = this->PolePodajIlosc->Text;
-	if (name->Length == 0 && amount->Length == 0)
-	{
-		MessageBox::Show("Wpisz poprawnie parametry", "DentApp", MessageBoxButtons::OK);
-		return;
+
+		if (name->Length == 0 && amount->Length == 0)
+		{
+			MessageBox::Show("Wpisz poprawnie parametry.", "DentApp", MessageBoxButtons::OK);
+			return;
+		}
+		try
+		{
+			String^ connectionString = "Data Source=.;Initial Catalog=Dentist;Integrated Security=True";
+			SqlConnection sqlConnectionString(connectionString);
+			sqlConnectionString.Open();
+
+			String^ sqlQuery = "UPDATE Products " +
+				"SET amount=amount+'"+amount+"' "+
+				"WHERE name=@name ";
+
+			SqlCommand command(sqlQuery, % sqlConnectionString);
+			command.Parameters->AddWithValue("@amount", amount);
+			command.Parameters->AddWithValue("@name", name);
+			command.ExecuteNonQuery();
+
+			MessageBox::Show("Zwiêkszono iloœæ produktu w magazynie.", "DentApp", MessageBoxButtons::OK);
+			this->Close();
+		}
+		catch (Exception^ ex)
+		{
+			MessageBox::Show("B³¹d bazy magazynu.", "DentApp", MessageBoxButtons::OK);
+		}
 	}
-	try
-	{
-		String^ connectionString = "Data Source=.;Initial Catalog=Dentist;Integrated Security=True";
-		SqlConnection sqlConnectionString(connectionString);
-		sqlConnectionString.Open();
 
-		String^ sqlQuery = "UPDATE Products " +
-			"SET amount=amount-'" + amount + "' " +
-			"WHERE name=@name ";
+	private: System::Void Usun(System::Object^ sender, System::EventArgs^ e) {
 
-		SqlCommand command(sqlQuery, % sqlConnectionString);
-		command.Parameters->AddWithValue("@amount", amount);
-		command.Parameters->AddWithValue("@name", name);
-		command.ExecuteNonQuery();
+		String^ name = this->PoleWybierzProdukt->Text;
+		String^ amount = this->PolePodajIlosc->Text;
 
-		MessageBox::Show("Zmniejszono iloœæ produktu w magazynie.", "DentApp", MessageBoxButtons::OK);
+		if (name->Length == 0 && amount->Length == 0)
+		{
+			MessageBox::Show("Wpisz poprawnie parametry", "DentApp", MessageBoxButtons::OK);
+			return;
+		}
+		try
+		{
+			String^ connectionString = "Data Source=.;Initial Catalog=Dentist;Integrated Security=True";
+			SqlConnection sqlConnectionString(connectionString);
+			sqlConnectionString.Open();
+
+			String^ sqlQuery = "UPDATE Products " +
+				"SET amount=amount-'" + amount + "' " +
+				"WHERE name=@name ";
+
+			SqlCommand command(sqlQuery, % sqlConnectionString);
+			command.Parameters->AddWithValue("@amount", amount);
+			command.Parameters->AddWithValue("@name", name);
+			command.ExecuteNonQuery();
+
+			MessageBox::Show("Zmniejszono iloœæ produktu w magazynie.", "DentApp", MessageBoxButtons::OK);
+			this->Close();
+		}
+		catch (Exception^ ex)
+		{
+			MessageBox::Show("B³¹d bazy magazynu.", "DentApp", MessageBoxButtons::OK);
+		}
+	}
+
+	public: bool goToAdminStoreAdd = false;
+
+	private: System::Void EdytujBazeProduktow(System::Object^ sender, System::EventArgs^ e) {
+		this->goToAdminStoreAdd=true;
 		this->Close();
 	}
-	catch (Exception^ ex)
-	{
-		MessageBox::Show("B³¹d bazy magazynu.", "DentApp", MessageBoxButtons::OK);
-	}
-}
-	public: bool goToAdminStoreAdd = false;
-	private: System::Void EdytujBazeProduktow(System::Object^ sender, System::EventArgs^ e) {
-	this->goToAdminStoreAdd=true;
-	this->Close();
-	}
+
 	private: System::Void pole_podaj_ilosc(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void napis_stan_magazynu(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void napis_podaj_ilosc(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 };
 }

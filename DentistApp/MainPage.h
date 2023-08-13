@@ -9,8 +9,6 @@ namespace DentistApp {
 	using namespace System::Data;
 	using namespace System::Drawing;
 
-
-
 	/// <summary>
 	/// Podsumowanie informacji o MainPage
 	/// </summary>
@@ -20,12 +18,7 @@ namespace DentistApp {
 		MainPage(User ^user)
 		{
 			InitializeComponent();
-			//
-			//TODO: W tym miejscu dodaj kod konstruktora
-			//
-
 			NapisPowitanie->Text = "Witaj " + user->name + "!";
-
 		}
 
 	protected:
@@ -42,39 +35,21 @@ namespace DentistApp {
 	private: System::Windows::Forms::Panel^ TloNiebieski;
 	private: System::Windows::Forms::Button^ PrzyciskMojProfil;
 	protected:
-
-
 	private: System::Windows::Forms::Button^ PrzyciskMojeWizyty;
-
 	private: System::Windows::Forms::Button^ PrzyciskUmowWizyte;
-
 	private: System::Windows::Forms::Panel^ TloGranatowy;
-
 	private: System::Windows::Forms::Panel^ panel3;
 	private: System::Windows::Forms::Label^ NapisStronaGlowna;
 	private: System::Windows::Forms::Label^ Logoo;
 	private: System::Windows::Forms::Label^ NapisPowitanie;
 	private: System::Windows::Forms::Panel^ TloBialy;
-
-
-
-
-
 	private: System::Windows::Forms::Button^ PrzyciskWyloguj;
-
 	private: System::Windows::Forms::Label^ NapisEmail;
-
 	private: System::Windows::Forms::Label^ NapisLogo;
 	private: System::Windows::Forms::Label^ NapisGodziny;
 	private: System::Windows::Forms::Label^ NapisNumerTelefonu;
-
-
-
 	private: System::Windows::Forms::Label^ NapisMiejsce;
-
-
 	protected:
-
 	private:
 		/// <summary>
 		/// Wymagana zmienna projektanta.
@@ -362,47 +337,64 @@ namespace DentistApp {
 	public: bool goToCreateVisit = false;
 	public: bool goToDataPage = false;
 	public: bool goToMyVisitsPage = false;
+
 	private: System::Void UmowWizyte(System::Object^ sender, System::EventArgs^ e) {
-	goToCreateVisit = true;
-	this->Close();
+		goToCreateVisit = true;
+		this->Close();
 	}
+
 	private: System::Void MojeWizyty(System::Object^ sender, System::EventArgs^ e) {
-	goToMyVisitsPage = true;
-	this->Close();
+		goToMyVisitsPage = true;
+		this->Close();
 	}
-	  public: bool goToMainPage = false;
+
+	public: bool goToMainPage = false;
+
 	private: System::Void MojProfil(System::Object^ sender, System::EventArgs^ e) {
-	goToDataPage=true;
-	this->Close();
+		goToDataPage=true;
+		this->Close();
 	}
 
 	private: System::Void logo(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void MainPage_Load(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void Wyloguj(System::Object^ sender, System::EventArgs^ e) {
-	goToLoginPage = true;
-	this->Close();
+		goToLoginPage = true;
+		this->Close();
 	}
+
 	private: System::Void napis_powitanie(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void napis_email(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void napis_logo(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void napis_godziny(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void napis_strona_glowna(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void napis_miejsce(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void napis_numer_telefonu(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void tlo_niebieski(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
 	}
+
 	private: System::Void tlo_granatowy(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
 	}
+
 	private: System::Void tlo_bialy(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
 	}
+
 };
 }

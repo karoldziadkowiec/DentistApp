@@ -20,9 +20,6 @@ namespace DentistApp {
 		DataPage(User^ user)
 		{
 			InitializeComponent();
-			//
-			//TODO: W tym miejscu dodaj kod konstruktora
-			//
 
 			PoleImie->Text = user->name;
 			PoleNazwisko->Text =user->surname;
@@ -51,11 +48,6 @@ namespace DentistApp {
 	private: System::Windows::Forms::Label^ NapisTwojPesel;
 	private: System::Windows::Forms::Label^ NapisTwojLogin;
 	protected:
-
-
-
-
-
 	private: System::Windows::Forms::Label^ NapisNumerTelefonu;
 	private: System::Windows::Forms::Label^ NapisAdres;
 	private: System::Windows::Forms::Button^ PrzyciskPowrot;
@@ -63,27 +55,11 @@ namespace DentistApp {
 	private: System::Windows::Forms::TextBox^ PoleNazwisko;
 	private: System::Windows::Forms::TextBox^ PoleNumerTelefonu;
 	private: System::Windows::Forms::TextBox^ PoleAdres;
-
-
-
-
-
-
-
-
-
 	private: System::Windows::Forms::Button^ PrzyciskZapisz;
-
 	private: System::Windows::Forms::Label^ NapisPesel;
 	private: System::Windows::Forms::Label^ NapisLogin;
 	private: System::Windows::Forms::TextBox^ PoleHaslo;
-
-
-
-
 	private: System::Windows::Forms::Label^ NapisHaslo;
-
-
 	private:
 		/// <summary>
 		/// Wymagana zmienna projektanta.
@@ -367,101 +343,118 @@ namespace DentistApp {
 		}
 #pragma endregion
 	public:User^ user = nullptr;
+
 	private: System::Void DataPage_Load(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void Powrot(System::Object^ sender, System::EventArgs^ e) {
-	this->goToMainPage = true;
-	this->Close();
-	}
-	   public: bool goToMainPage = false;
-	private: System::Void Zapisz(System::Object^ sender, System::EventArgs^ e) {
-	String^ name = this->PoleImie->Text;
-	String^ surname = this->PoleNazwisko->Text;
-	String^ password = this->PoleHaslo->Text;
-	String^ phone = this->PoleNumerTelefonu->Text;
-	String^ address = this->PoleAdres->Text;
-	String^ pesel = this->NapisTwojPesel->Text;
-
-	if (name->Length == 0 || surname->Length == 0 || phone->Length == 0 || address->Length == 0)
-	{
-		MessageBox::Show("Puste pola logowania. Wpisz poprawne dane.", "DentApp", MessageBoxButtons::OK);
-		return;
-	}
-	if ((password->Length < 5 && password->Length != 0) || (password->Length > 15 && password->Length != 0))
-	{
-		MessageBox::Show("Has³o musi zawieraæ od 5 do 15 znaków.", "DentApp", MessageBoxButtons::OK);
-		return;
-	}
-	if (phone->Length != 9 && pesel->Length != 0)
-	{
-		MessageBox::Show("Numer telefonu musi zawieraæ 9 znaków.", "DentApp", MessageBoxButtons::OK);
-		return;
-	}
-	try
-	{
-		String^ connectionString = "Data Source=.;Initial Catalog=Dentist;Integrated Security=True";
-		SqlConnection sqlConnectionString(connectionString);
-		sqlConnectionString.Open();
-
-		String^ sqlQuery = "UPDATE Users " +
-			"SET name=@name, surname=@surname, password=@password, phone=@phone, address=@address " +
-			"WHERE pesel=@pesel";
-		//String^ sqlQuery = "SELECT * FROM Users WHERE name=@name AND surname=@surname AND phone=@phone AND address=@address;";
-		SqlCommand command(sqlQuery, % sqlConnectionString);
-		command.Parameters->AddWithValue("@name", name);
-		command.Parameters->AddWithValue("@surname", surname);
-		command.Parameters->AddWithValue("@password", password);
-		command.Parameters->AddWithValue("@phone", phone);
-		command.Parameters->AddWithValue("@address", address);
-		command.Parameters->AddWithValue("@pesel", pesel);
-		command.ExecuteNonQuery();
-
-		this->PoleImie->Text = name;
-		this->PoleNazwisko->Text = surname;
-		this->PoleHaslo->Text = password;
-		this->PoleNumerTelefonu->Text = phone;
-		this->PoleAdres->Text = address;
-
 		this->goToMainPage = true;
-		MessageBox::Show("Pomyœlnie edytowano dane konta.", "DentApp", MessageBoxButtons::OK);
 		this->Close();
-		//
 	}
-	catch (Exception^ e)
-	{
-		MessageBox::Show("B³¹d edycji konta. Wpisz poprawne dane.", "DentApp", MessageBoxButtons::OK);
+	public: bool goToMainPage = false;
 
+	private: System::Void Zapisz(System::Object^ sender, System::EventArgs^ e) {
+
+		String^ name = this->PoleImie->Text;
+		String^ surname = this->PoleNazwisko->Text;
+		String^ password = this->PoleHaslo->Text;
+		String^ phone = this->PoleNumerTelefonu->Text;
+		String^ address = this->PoleAdres->Text;
+		String^ pesel = this->NapisTwojPesel->Text;
+
+		if (name->Length == 0 || surname->Length == 0 || phone->Length == 0 || address->Length == 0)
+		{
+			MessageBox::Show("Puste pola logowania. Wpisz poprawne dane.", "DentApp", MessageBoxButtons::OK);
+			return;
+		}
+		if ((password->Length < 5 && password->Length != 0) || (password->Length > 15 && password->Length != 0))
+		{
+			MessageBox::Show("Has³o musi zawieraæ od 5 do 15 znaków.", "DentApp", MessageBoxButtons::OK);
+			return;
+		}
+		if (phone->Length != 9 && pesel->Length != 0)
+		{
+			MessageBox::Show("Numer telefonu musi zawieraæ 9 znaków.", "DentApp", MessageBoxButtons::OK);
+			return;
+		}
+		try
+		{
+			String^ connectionString = "Data Source=.;Initial Catalog=Dentist;Integrated Security=True";
+			SqlConnection sqlConnectionString(connectionString);
+			sqlConnectionString.Open();
+
+			String^ sqlQuery = "UPDATE Users " +
+				"SET name=@name, surname=@surname, password=@password, phone=@phone, address=@address " +
+				"WHERE pesel=@pesel";
+			SqlCommand command(sqlQuery, % sqlConnectionString);
+			command.Parameters->AddWithValue("@name", name);
+			command.Parameters->AddWithValue("@surname", surname);
+			command.Parameters->AddWithValue("@password", password);
+			command.Parameters->AddWithValue("@phone", phone);
+			command.Parameters->AddWithValue("@address", address);
+			command.Parameters->AddWithValue("@pesel", pesel);
+			command.ExecuteNonQuery();
+
+			this->PoleImie->Text = name;
+			this->PoleNazwisko->Text = surname;
+			this->PoleHaslo->Text = password;
+			this->PoleNumerTelefonu->Text = phone;
+			this->PoleAdres->Text = address;
+
+			this->goToMainPage = true;
+			MessageBox::Show("Pomyœlnie edytowano dane konta.", "DentApp", MessageBoxButtons::OK);
+			this->Close();
+		}
+		catch (Exception^ e)
+		{
+			MessageBox::Show("B³¹d edycji konta. Wpisz poprawne dane.", "DentApp", MessageBoxButtons::OK);
+		}
 	}
-	}
+
 	private: System::Void napis_moj_profil(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void napis_imie(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void napis_nazwisko(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void napis_pesel(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void napis_login(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void napis_haslo(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void napis_numer_telefonu(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void napis_adres(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void pole_imie(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void pole_nazwisko(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void napis_twoj_pesel(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void napis_twoj_login(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void pole_haslo(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void pole_numer_telefonu(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void pole_adres(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 };
 }

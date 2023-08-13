@@ -39,45 +39,24 @@ namespace DentistApp {
 		}
 	private: System::Windows::Forms::Panel^ TloNiebieski;
 	protected:
-
 	private: System::Windows::Forms::Button^ PrzyciskMojProfil;
 	private: System::Windows::Forms::Button^ PrzyciskWizyty;
 	private: System::Windows::Forms::Button^ PrzyciskUsunWizyte;
 	private: System::Windows::Forms::Panel^ TloGranatowy;
-
-
-
-
 	private: System::Windows::Forms::Panel^ panel3;
 	private: System::Windows::Forms::Label^ NapisStronaGlowna;
 	private: System::Windows::Forms::Label^ Logoo;
-
-
 	private: System::Windows::Forms::Label^ NapisPowitanie;
 	private: System::Windows::Forms::Panel^ TloBialy;
-
-
 	private: System::Windows::Forms::Button^ PrzyciskWyloguj;
-
 	private: System::Windows::Forms::Label^ NapisEmail;
-
 	private: System::Windows::Forms::Label^ NapisLogo;
 	private: System::Windows::Forms::Label^ NapisGodzinyOtwarcia;
 	private: System::Windows::Forms::Label^ NapisNumerTelefonu;
-
-
-
 	private: System::Windows::Forms::Label^ NapisMiejsce;
 	private: System::Windows::Forms::Button^ PrzyciskMagazyn;
 	private: System::Windows::Forms::Button^ PrzyciskPacjenci;
-
-
-
-
-
-
 	protected:
-
 	private:
 		/// <summary>
 		/// Wymagana zmienna projektanta.
@@ -402,16 +381,20 @@ namespace DentistApp {
 	public: bool goToAdminMyVisitPage = false;
 	public: bool goToAdminPatients = false;
 	public: bool goToAdminStore = false;
-		  public: bool goToAdminPatientInfo = false;
+	public: bool goToAdminPatientInfo = false;
+
 	private: System::Void UmowWizyte(System::Object^ sender, System::EventArgs^ e) {
 		goToAdminCreateVisit = true;
 		this->Close();
 	}
+
 	private: System::Void Wizyty(System::Object^ sender, System::EventArgs^ e) {
 		goToAdminMyVisitPage = true;
 		this->Close();
 	}
+
 	public: bool goToAdminMainPage = false;
+
 	private: System::Void MojProfil(System::Object^ sender, System::EventArgs^ e) {
 		goToDataPage = true;
 		this->Close();
@@ -419,39 +402,54 @@ namespace DentistApp {
 
 	private: System::Void Logo(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void AdminMainPage_Load(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void Wyloguj(System::Object^ sender, System::EventArgs^ e) {
 		goToLoginPage = true;
 		this->Close();
 	}
+
 	private: System::Void napis_powitanie(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void napis_email(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void napis_logo(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void napis_godziny_otwarcia(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void Pacjenci(System::Object^ sender, System::EventArgs^ e) {
 		goToAdminPatients = true;
 		this->Close();
 	}
+
 	private: System::Void Magazyn(System::Object^ sender, System::EventArgs^ e) {
-	goToAdminStore = true;
-	this->Close();
+		goToAdminStore = true;
+		this->Close();
 	}
+
 	private: System::Void Tlo_bialy(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
 	}
+
 	private: System::Void Tlo_granatowy(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
 	}
+
 	private: System::Void Tlo_niebieski(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
 	}
+
 	private: System::Void napis_miejsce(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void napis_numer_telefonu(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void napis_strona_glowna(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 };
 }

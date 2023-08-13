@@ -18,9 +18,7 @@ namespace DentistApp {
 		AdminPatients(void)
 		{
 			InitializeComponent();
-			//
-			//TODO: W tym miejscu dodaj kod konstruktora
-			//
+			
 			String^ connectionString = "Data Source=.;Initial Catalog=Dentist;Integrated Security=True";
 			SqlConnection^ sqlConnectionString = gcnew SqlConnection(connectionString);
 			SqlCommand^ cmdDataBase = gcnew SqlCommand("SELECT Id,pesel,name,surname,login,phone,address FROM Users WHERE login!='admin' ORDER BY id asc", sqlConnectionString);
@@ -58,24 +56,13 @@ namespace DentistApp {
 	private: System::Windows::Forms::DataGridView^ BazaPacjenci;
 	private: System::Windows::Forms::Button^ PrzyciskPowrot;
 	protected:
-
-
-
 	private: System::Windows::Forms::Button^ PrzyciskSzukaj;
 	private: System::Windows::Forms::TextBox^ PoleWpiszPesel;
-
-
 	private: System::Windows::Forms::Label^ NapisWpiszPesel;
 	private: System::Windows::Forms::DataGridView^ BazaWizyty;
-
-
 	private: System::Windows::Forms::Label^ NapisWszystkieWizyty;
-
-
 	protected:
-
 	protected:
-
 	private:
 		/// <summary>
 		/// Wymagana zmienna projektanta.
@@ -227,57 +214,60 @@ namespace DentistApp {
 
 		}
 #pragma endregion
-		public: bool goToAdminPatientInfo = false;
+	public: bool goToAdminPatientInfo = false;
+
 	private: System::Void napis_baza_pacjentow(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void AdminPatients_Load(System::Object^ sender, System::EventArgs^ e) {
 	}
-private: System::Void Powrot(System::Object^ sender, System::EventArgs^ e) {
-	this->Close();
-}
-private: System::Void baza_pacjenci(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
-}
 
-private: System::Void Szukaj(System::Object^ sender, System::EventArgs^ e) {
-	String^ pesel = this->PoleWpiszPesel->Text;
-	if (pesel->Length == 0)
-	{
-		MessageBox::Show("Failed connection", "There cannot be any empty field", MessageBoxButtons::OK);
-		return;
-	}
-	String^ connectionString = "Data Source=.;Initial Catalog=Dentist;Integrated Security=True";
-	SqlConnection^ sqlConnectionString = gcnew SqlConnection(connectionString);
-	SqlCommand^ cmdDataBase = gcnew SqlCommand("SELECT Id,date FROM Visits WHERE pesel='" + pesel + "' ORDER BY date DESC", sqlConnectionString);
-	SqlDataReader^ myReader;
-	try
-	{
-		SqlDataAdapter^ sda = gcnew  SqlDataAdapter();
-		sda->SelectCommand = cmdDataBase;
-		DataTable^ dbdataset = gcnew DataTable();
-		sda->Fill(dbdataset);
-		BindingSource^ bSource = gcnew BindingSource();
-
-		bSource->DataSource = dbdataset;
-		BazaWizyty->DataSource = bSource;
-		sda->Update(dbdataset);
-
-		//this->label3->Text = pesel;
-	}
-	catch (Exception^ e)
-	{
-		MessageBox::Show("B³¹d wczytania bazy danych.", "DentApp", MessageBoxButtons::OK);
+	private: System::Void Powrot(System::Object^ sender, System::EventArgs^ e) {
+		this->Close();
 	}
 
-	//goToAdminPatientInfo = true;
-	//this->Close();
-}
-private: System::Void pole_wpisz_pesel (System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void napis_wpisz_pesel(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void napis_wszystkie_wizyty(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void baza_wizyty_pacjenta(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
-}
+	private: System::Void baza_pacjenci(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
+	}
+
+	private: System::Void Szukaj(System::Object^ sender, System::EventArgs^ e) {
+		String^ pesel = this->PoleWpiszPesel->Text;
+		if (pesel->Length == 0)
+		{
+			MessageBox::Show("Failed connection", "There cannot be any empty field", MessageBoxButtons::OK);
+			return;
+		}
+		String^ connectionString = "Data Source=.;Initial Catalog=Dentist;Integrated Security=True";
+		SqlConnection^ sqlConnectionString = gcnew SqlConnection(connectionString);
+		SqlCommand^ cmdDataBase = gcnew SqlCommand("SELECT Id,date FROM Visits WHERE pesel='" + pesel + "' ORDER BY date DESC", sqlConnectionString);
+		SqlDataReader^ myReader;
+		try
+		{
+			SqlDataAdapter^ sda = gcnew  SqlDataAdapter();
+			sda->SelectCommand = cmdDataBase;
+			DataTable^ dbdataset = gcnew DataTable();
+			sda->Fill(dbdataset);
+			BindingSource^ bSource = gcnew BindingSource();
+			bSource->DataSource = dbdataset;
+			BazaWizyty->DataSource = bSource;
+			sda->Update(dbdataset);
+		}
+		catch (Exception^ e)
+		{
+			MessageBox::Show("B³¹d wczytania bazy danych.", "DentApp", MessageBoxButtons::OK);
+		}
+	}
+
+	private: System::Void pole_wpisz_pesel (System::Object^ sender, System::EventArgs^ e) {
+	}
+
+	private: System::Void napis_wpisz_pesel(System::Object^ sender, System::EventArgs^ e) {
+	}
+
+	private: System::Void napis_wszystkie_wizyty(System::Object^ sender, System::EventArgs^ e) {
+	}
+
+	private: System::Void baza_wizyty_pacjenta(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
+	}
+
 };
 }

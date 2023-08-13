@@ -19,9 +19,6 @@ namespace DentistApp {
 		LoginPage(void)
 		{
 			InitializeComponent();
-			//
-			//TODO: W tym miejscu dodaj kod konstruktora
-			//
 		}
 
 	protected:
@@ -40,20 +37,11 @@ namespace DentistApp {
 	private: System::Windows::Forms::Label^ NapisHaslo;
 	private: System::Windows::Forms::TextBox^ PoleHaslo;
 	protected:
-
 	protected:
-
-
-
 	private: System::Windows::Forms::TextBox^ PoleLogin;
-
 	private: System::Windows::Forms::Button^ PrzyciskWyjdz;
-
 	private: System::Windows::Forms::Button^ PrzyciskZaloguj;
-
 	private: System::Windows::Forms::LinkLabel^ PrzyciskZarejestujSie;
-
-
 	private:
 		/// <summary>
 		/// Wymagana zmienna projektanta.
@@ -216,69 +204,77 @@ namespace DentistApp {
 #pragma endregion
 	public:User^ user = nullptr;
 	public: bool goToRegisterPage = false;
+
 	private: System::Void Wyjdz(System::Object^ sender, System::EventArgs^ e) {
 		this->Close();
 	}
+
 	private: System::Void Zaloguj(System::Object^ sender, System::EventArgs^ e) {
-	String^ login = this->PoleLogin->Text;
-	String^ password = this->PoleHaslo->Text;
-	if (login->Length == 0 || password->Length == 0)
-	{
-		MessageBox::Show("Puste pola logowania. Wpisz poprawne dane.", "DentApp", MessageBoxButtons::OK);
-		return;
-	}
-	try
-	{
-		String^ connectionString = "Data Source=.;Initial Catalog=Dentist;Integrated Security=True";
-		SqlConnection sqlConnectionString(connectionString);
-		sqlConnectionString.Open();
-
-		String^ sqlQuery = "SELECT * FROM Users WHERE login=@login AND password=@password;";
-		SqlCommand command(sqlQuery, % sqlConnectionString);
-		command.Parameters->AddWithValue("@login", login);
-		command.Parameters->AddWithValue("@password", password);
-
-		SqlDataReader^ reader = command.ExecuteReader();
-		if (reader->Read())
+		String^ login = this->PoleLogin->Text;
+		String^ password = this->PoleHaslo->Text;
+		if (login->Length == 0 || password->Length == 0)
 		{
-			user = gcnew User;
-			user->Id = reader->GetInt32(0);
-			user->pesel = reader->GetString(1);
-			user->name = reader->GetString(2);
-			user->surname = reader->GetString(3);
-			user->login = reader->GetString(4);
-			user->password = reader->GetString(5);
-			user->phone = reader->GetString(6);
-			user->address = reader->GetString(7);
-
-			this->Close();
+			MessageBox::Show("Puste pola logowania. Wpisz poprawne dane.", "DentApp", MessageBoxButtons::OK);
+			return;
 		}
-		else
+		try
 		{
-			MessageBox::Show("Wpisz poprawne dane logowania.", "DentApp", MessageBoxButtons::OK);
+			String^ connectionString = "Data Source=.;Initial Catalog=Dentist;Integrated Security=True";
+			SqlConnection sqlConnectionString(connectionString);
+			sqlConnectionString.Open();
+
+			String^ sqlQuery = "SELECT * FROM Users WHERE login=@login AND password=@password;";
+			SqlCommand command(sqlQuery, % sqlConnectionString);
+			command.Parameters->AddWithValue("@login", login);
+			command.Parameters->AddWithValue("@password", password);
+
+			SqlDataReader^ reader = command.ExecuteReader();
+			if (reader->Read())
+			{
+				user = gcnew User;
+				user->Id = reader->GetInt32(0);
+				user->pesel = reader->GetString(1);
+				user->name = reader->GetString(2);
+				user->surname = reader->GetString(3);
+				user->login = reader->GetString(4);
+				user->password = reader->GetString(5);
+				user->phone = reader->GetString(6);
+				user->address = reader->GetString(7);
+
+				this->Close();
+			}
+			else
+			{
+				MessageBox::Show("Wpisz poprawne dane logowania.", "DentApp", MessageBoxButtons::OK);
+			}
+		}
+		catch(Exception^ e)
+		{
+			MessageBox::Show("B³¹d wczytania bazy danych.", "DentApp", MessageBoxButtons::OK);
 		}
 	}
-	catch(Exception^ e)
-	{
-		MessageBox::Show("B³¹d wczytania bazy danych.", "DentApp", MessageBoxButtons::OK);
-
-	}
-}
 	private: System::Void ZarejestrujSie(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e) {
-	this->goToRegisterPage = true;
-	this->Close();
+		this->goToRegisterPage = true;
+		this->Close();
 	}
+
 	private: System::Void LoginPage_Load(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void logo(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void napis_login(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void napis_haslo(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void pole_login(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void pole_haslo(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 };
 }

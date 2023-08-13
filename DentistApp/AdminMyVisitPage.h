@@ -21,9 +21,7 @@ namespace DentistApp {
 		{
 			String^ pesel = user->pesel;
 			InitializeComponent();
-			//
-			//TODO: W tym miejscu dodaj kod konstruktora
-			//
+
 			String^ connectionString = "Data Source=.;Initial Catalog=Dentist;Integrated Security=True";
 			SqlConnection^ sqlConnectionString = gcnew SqlConnection(connectionString);
 			SqlCommand^ cmdDataBase = gcnew SqlCommand("SELECT id,date,pesel FROM Visits WHERE pesel!='0' ORDER BY date DESC", sqlConnectionString);
@@ -63,20 +61,9 @@ namespace DentistApp {
 	private: System::Windows::Forms::DataGridView^ BazaWizyty;
 	private: System::Windows::Forms::Button^ PrzyciskPowrot;
 	protected:
-
-
-
 	private: System::Windows::Forms::Label^ NapisIdWizyty;
 	private: System::Windows::Forms::TextBox^ PoleIdWizyty;
 	private: System::Windows::Forms::Button^ PrzyciskOdwolajWizyte;
-
-
-
-
-
-
-
-
 	private:
 		/// <summary>
 		/// Wymagana zmienna projektanta.
@@ -220,12 +207,12 @@ namespace DentistApp {
 		this->Close();
 	}
 
-
 	private: System::Void AdminMyVisitsPage_Load(System::Object^ sender, System::EventArgs^ e) {
 	}
 
 	private: System::Void pole_id_wizyty(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void OdwolajWizyte(System::Object^ sender, System::EventArgs^ e) {
 		String^ Id = this->PoleIdWizyty->Text;
 		String^ pesel = "0";
@@ -249,8 +236,6 @@ namespace DentistApp {
 			command.Parameters->AddWithValue("@Id", Id);
 			command.ExecuteNonQuery();
 
-
-
 			MessageBox::Show("Pomyœlnie anulowano wizytê.", "DentApp", MessageBoxButtons::OK);
 			this->Close();
 		}
@@ -259,9 +244,12 @@ namespace DentistApp {
 			MessageBox::Show("B³¹d w rejestracji. Wpisz poprawne dane.", "DentApp", MessageBoxButtons::OK);
 		}
 	}
+
 	private: System::Void napis_wszystkie_wizyty(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void napis_id_wizyty(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 };
 }

@@ -20,9 +20,7 @@ namespace DentistApp {
 		AdminStoreAdd(void)
 		{
 			InitializeComponent();
-			//
-			//TODO: W tym miejscu dodaj kod konstruktora
-			//
+			
 			String^ connectionString = "Data Source=.;Initial Catalog=Dentist;Integrated Security=True";
 			SqlConnection^ sqlConnectionString = gcnew SqlConnection(connectionString);
 			SqlCommand^ cmdDataBase = gcnew SqlCommand("SELECT Id,name FROM Products ORDER BY name asc", sqlConnectionString);
@@ -59,30 +57,15 @@ namespace DentistApp {
 	private: System::Windows::Forms::Label^ NapisBazaProduktow;
 	private: System::Windows::Forms::DataGridView^ BazaMagazyn;
 	protected:
-
-
 	private: System::Windows::Forms::Label^ NapisNazwaProduktu;
 	private: System::Windows::Forms::TextBox^ PoleNazwaProduktu;
-
-
 	private: System::Windows::Forms::Button^ PrzyciskPowrotDoMenu;
-
-
-
-
-
 	private: System::Windows::Forms::Button^ PrzyciskDodaj;
 	private: System::Windows::Forms::Button^ PrzyciskUsun;
-
-
 	private: System::Windows::Forms::Label^ NapisCenaProduktu;
 	private: System::Windows::Forms::TextBox^ PoleCenaProduktu;
-
-
 	private: System::Windows::Forms::Label^ NapisZ³;
-
 	protected:
-
 	private:
 		/// <summary>
 		/// Wymagana zmienna projektanta.
@@ -265,87 +248,98 @@ namespace DentistApp {
 		this->goToAdminMainPage = true;
 		this->Close();
 	}
+
 	private: System::Void baza_magazyn(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
 	}
+
 	public: bool goToAdminMainPage = false;
 	public: Products^ product = nullptr;
+
 	private: System::Void Dodaj(System::Object^ sender, System::EventArgs^ e) {
-	String^ name = this->PoleNazwaProduktu->Text;
-	String^ price = this->PoleCenaProduktu->Text;
-	String^ amount = "0";
-	if (name->Length == 0 || price->Length == 0)
-	{
-		MessageBox::Show("Uzupe³nij puste pola.", "DentApp", MessageBoxButtons::OK);
-		return;
-	}
-	try
-	{
-		String^ connectionString = "Data Source=.;Initial Catalog=Dentist;Integrated Security=True";
-		SqlConnection sqlConnectionString(connectionString);
-		sqlConnectionString.Open();
+		String^ name = this->PoleNazwaProduktu->Text;
+		String^ price = this->PoleCenaProduktu->Text;
+		String^ amount = "0";
+		if (name->Length == 0 || price->Length == 0)
+		{
+			MessageBox::Show("Uzupe³nij puste pola.", "DentApp", MessageBoxButtons::OK);
+			return;
+		}
+		try
+		{
+			String^ connectionString = "Data Source=.;Initial Catalog=Dentist;Integrated Security=True";
+			SqlConnection sqlConnectionString(connectionString);
+			sqlConnectionString.Open();
 
-		String^ sqlQuery = "INSERT INTO Products " +
-			"(name, amount, price) VALUES " +
-			"(@name, @amount, @price);";
+			String^ sqlQuery = "INSERT INTO Products " +
+				"(name, amount, price) VALUES " +
+				"(@name, @amount, @price);";
 
-		SqlCommand command(sqlQuery, % sqlConnectionString);
-		command.Parameters->AddWithValue("@name", name);
-		command.Parameters->AddWithValue("@amount", amount);
-		command.Parameters->AddWithValue("@price", price);
-		command.ExecuteNonQuery();
+			SqlCommand command(sqlQuery, % sqlConnectionString);
+			command.Parameters->AddWithValue("@name", name);
+			command.Parameters->AddWithValue("@amount", amount);
+			command.Parameters->AddWithValue("@price", price);
+			command.ExecuteNonQuery();
 
-		this->goToAdminMainPage = true;
-		MessageBox::Show("Dodano produkt do magazynu.", "DentApp", MessageBoxButtons::OK);
-		this->Close();
+			this->goToAdminMainPage = true;
+			MessageBox::Show("Dodano produkt do magazynu.", "DentApp", MessageBoxButtons::OK);
+			this->Close();
+		}
+		catch (Exception^ ex)
+		{
+			MessageBox::Show("B³¹d bazy magazynu.", "DentApp", MessageBoxButtons::OK);
+		}
 	}
-	catch (Exception^ ex)
-	{
-		MessageBox::Show("B³¹d bazy magazynu.", "DentApp", MessageBoxButtons::OK);
-	}
-}
+
 	private: System::Void pole_cena_produktu(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void pole_nazwa_produktu(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void Usun(System::Object^ sender, System::EventArgs^ e) {
-	String^ name = this->PoleNazwaProduktu->Text;
-	String^ price = this->PoleCenaProduktu->Text;
-	String^ amount = "0";
-	if (name->Length == 0)
-	{
-		MessageBox::Show("Uzupe³nij puste pola.", "DentApp", MessageBoxButtons::OK);
-		return;
-	}
-	try
-	{
-		String^ connectionString = "Data Source=.;Initial Catalog=Dentist;Integrated Security=True";
-		SqlConnection sqlConnectionString(connectionString);
-		sqlConnectionString.Open();
+		String^ name = this->PoleNazwaProduktu->Text;
+		String^ price = this->PoleCenaProduktu->Text;
+		String^ amount = "0";
+		if (name->Length == 0)
+		{
+			MessageBox::Show("Uzupe³nij puste pola.", "DentApp", MessageBoxButtons::OK);
+			return;
+		}
+		try
+		{
+			String^ connectionString = "Data Source=.;Initial Catalog=Dentist;Integrated Security=True";
+			SqlConnection sqlConnectionString(connectionString);
+			sqlConnectionString.Open();
 
-		String^ sqlQuery = "DELETE FROM Products WHERE name=@name";
+			String^ sqlQuery = "DELETE FROM Products WHERE name=@name";
 
-		SqlCommand command(sqlQuery, % sqlConnectionString);
-		command.Parameters->AddWithValue("@name", name);
-		command.ExecuteNonQuery();
+			SqlCommand command(sqlQuery, % sqlConnectionString);
+			command.Parameters->AddWithValue("@name", name);
+			command.ExecuteNonQuery();
 
-		this->goToAdminMainPage = true;
-		MessageBox::Show("Usuniêto produkt z magazynu.", "DentApp", MessageBoxButtons::OK);
-		this->Close();
+			this->goToAdminMainPage = true;
+			MessageBox::Show("Usuniêto produkt z magazynu.", "DentApp", MessageBoxButtons::OK);
+			this->Close();
+		}
+		catch (Exception^ ex)
+		{
+			MessageBox::Show("B³¹d bazy magazynu.", "DentApp", MessageBoxButtons::OK);
+		}
 	}
-	catch (Exception^ ex)
-	{
-		MessageBox::Show("B³¹d bazy magazynu.", "DentApp", MessageBoxButtons::OK);
-	}
-}
 	private: System::Void napis_baza_produktow(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void napis_nazwa_produktu(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void napis_cena_produktu(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void AdminStoreAdd_Load(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void napis_zl(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 };
 }

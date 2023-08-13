@@ -21,9 +21,6 @@ namespace DentistApp {
 		AdminCreateVisit(User^ user)
 		{
 			InitializeComponent();
-			//
-			//TODO: W tym miejscu dodaj kod konstruktora
-			//
 
 			String^ pesel = user->pesel;
 			String^ connectionString = "Data Source=.;Initial Catalog=Dentist;Integrated Security=True";
@@ -59,34 +56,18 @@ namespace DentistApp {
 				delete components;
 			}
 		}
+
 	private: System::Windows::Forms::Panel^ panel3;
 	private: System::Windows::Forms::Label^ NapisUtworzWizyte;
 	private: System::Windows::Forms::Button^ PrzyciskPowrot;
-
 	protected:
-
-
 	private: System::Windows::Forms::Button^ PrzyciskUtworz;
-
 	private: System::Windows::Forms::Label^ NapisData;
 	private: System::Windows::Forms::TextBox^ PoleData;
-
-
 	private: System::Windows::Forms::Label^ NapisPodajPesel;
 	private: System::Windows::Forms::DataGridView^ BazaWizyty;
-
-
-
-
 	private: System::Windows::Forms::Label^ NapisDostepneWizyty;
 	private: System::Windows::Forms::TextBox^ PolePodajPesel;
-
-
-
-
-
-
-
 	private:
 		/// <summary>
 		/// Wymagana zmienna projektanta.
@@ -303,22 +284,30 @@ namespace DentistApp {
 	private: System::Void Powrot(System::Object^ sender, System::EventArgs^ e) {
 		this->Close();
 	}
-	private: System::Void pole_data(System::Object^ sender, System::EventArgs^ e) {
 
+	private: System::Void pole_data(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void napis_data(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void baza_wizyty(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
 	}
+
 	private: System::Void napis_dostepne_wizyty(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void AdminCreateVisit_Load(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void napis_podaj_pesel(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void pole_podaj_pesel(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 	private: System::Void napis_utworz_wizyte(System::Object^ sender, System::EventArgs^ e) {
 	}
+
 };
 }
